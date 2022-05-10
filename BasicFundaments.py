@@ -1,6 +1,7 @@
 text_calc = "0"
 result = 0
 def Button1():
+    global text_calc
     if text_calc == "0":
         text_calc = "1"
     else:
@@ -28,6 +29,7 @@ def Button5():
     else:
         text_calc = text_calc + "5"
 def Button6():
+    global text_calc
     if text_calc == "0":
         text_calc = "6"
     else:
@@ -48,13 +50,16 @@ def Button9():
     else:
         text_calc = text_calc + "9"
 def Button0():
+    global text_calc
     if text_calc != "0":
         text_calc = text_calc + "0"
-def Add(text_calc):
+def Add():
+    global text_calc
     text_calc = text_calc + "+"
-    return text_calc
-text_calc = Button3(text_calc)
-text_calc = Add(text_calc)
-text_calc = Button4(text_calc)
+    
+Button1()
+Button0()
+Add()
+Button6()
 result = eval(text_calc)
 print(result)
