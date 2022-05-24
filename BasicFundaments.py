@@ -1,5 +1,5 @@
 import EssentialsLib as Lib1
-import keyboard
+
 
 main = Lib1.Essentials()
 
@@ -12,7 +12,7 @@ while True:
     elif a == "sub" or a == "-":
         main.Sub()
         print(main.text_calc)
-    elif a == "res" or a == "=":
+    elif a == "res" or a == "=" :
         main.Result()
         print(main.result)
         break
@@ -23,7 +23,7 @@ while True:
     elif a == "multi" or a == "*":
         main.Multi()
         print(main.text_calc)
-    elif a == "AC" or a == "":
+    elif a == "AC" or a == "del":
         main.AC()
         print(main.text_calc)
     elif a == "1":

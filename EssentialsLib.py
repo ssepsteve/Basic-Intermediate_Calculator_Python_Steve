@@ -83,4 +83,5 @@ class Essentials:
     def Result(self):
         
         self.result = eval(self.text_calc)
+        
 
