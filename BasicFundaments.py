@@ -14,8 +14,9 @@ while True:
         print(main.text_calc)
     elif a == "res" or a == "=" :
         main.Result()
-        print(main.result)
-        break
+        print(main.text_calc)
+    elif a == "exit":
+        break     
     elif a == "div" or a == "/":
         main.Div()
         print(main.text_calc)
