@@ -29,7 +29,7 @@ while True:
     elif a == "multi" or a == "*":
         main.Multi()
         print(main.text_calc)
-    elif a == "AC" or a == "del":
+    elif a == "ac" or a == "del":
         main.AC()
         print(main.text_calc)
     elif a == "1":
