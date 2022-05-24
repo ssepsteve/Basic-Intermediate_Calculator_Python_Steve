@@ -68,6 +68,15 @@ class Essentials:
     def Add(self):
         self.text_calc
         self.text_calc = self.text_calc + "+"
+    def Div(self):
+        self.text_calc
+        self.text_calc = self.text_calc + "/"
+    def Multi(self):
+        self.text_calc
+        self.text_calc = self.text_calc + "*"
+    def AC(self):
+        self.text_calc
+        self.text_calc = "0"
     def Sub(self):
         
         self.text_calc = self.text_calc + "-"

@@ -1,22 +1,31 @@
-import os
 import EssentialsLib as Lib1
-
+import keyboard
 
 main = Lib1.Essentials()
 
 while True:
     a = str(input("Operation or num: "))
     a = a.lower()
-    if a == "add":
+    if a == "add" or a == "+":
         main.Add()
         print(main.text_calc)
-    elif a == "sub":
+    elif a == "sub" or a == "-":
         main.Sub()
         print(main.text_calc)
-    elif a == "res":
+    elif a == "res" or a == "=":
         main.Result()
         print(main.result)
         break
+    elif a == "div" or a == "/":
+        main.Div()
+        print(main.text_calc)
+       
+    elif a == "multi" or a == "*":
+        main.Multi()
+        print(main.text_calc)
+    elif a == "AC" or a == "":
+        main.AC()
+        print(main.text_calc)
     elif a == "1":
         main.Button1()
         print(main.text_calc)
