@@ -5,7 +5,7 @@ class Essentials:
         self.result = 0
         self.text_calc = "0"
     
-   
+    #Botones De Numeros:
     def Button1(self):
          
         if self.text_calc == "0":
@@ -65,24 +65,36 @@ class Essentials:
         
         if self.text_calc != "0":
             self.text_calc = self.text_calc + "0"
+    
+    # Botones De Funciones principales:
+
     def Add(self):
         self.text_calc
         self.text_calc = self.text_calc + "+"
+
     def Div(self):
         self.text_calc
         self.text_calc = self.text_calc + "/"
+
     def Multi(self):
         self.text_calc
         self.text_calc = self.text_calc + "*"
+
     def AC(self):
         self.text_calc
         self.text_calc = "0"
+
     def Sub(self):
-        
         self.text_calc = self.text_calc + "-"
+
     def Result(self):
         
         self.result = eval(self.text_calc)
 
         self.text_calc = str(self.result)
         
+    def Open_Par(self):
+        self.text_calc = self.text_calc + "(" 
+        
+    def Close_Par(self):
+        self.text_calc = self.text_calc + ")"

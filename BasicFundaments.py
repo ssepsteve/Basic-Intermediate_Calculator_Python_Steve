@@ -20,7 +20,12 @@ while True:
     elif a == "div" or a == "/":
         main.Div()
         print(main.text_calc)
-       
+    elif a == "(":
+        main.Open_Par()
+        print(main.text_calc)   
+    elif a == ")":
+        main.Close_Par()
+        print(main.text_calc)   
     elif a == "multi" or a == "*":
         main.Multi()
         print(main.text_calc)
