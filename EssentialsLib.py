@@ -83,5 +83,7 @@ class Essentials:
     def Result(self):
         
         self.result = eval(self.text_calc)
+
+        self.text_calc = str(self.result)
         
 
