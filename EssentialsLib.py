@@ -12,7 +12,6 @@ class Essentials:
             self.text_calc = "1"
         else:
             self.text_calc = self.text_calc + "1"
-        
     def Button2(self):
         if self.text_calc == "0":
             self.text_calc = "2"
@@ -23,15 +22,13 @@ class Essentials:
         if self.text_calc == "0":
             self.text_calc = "3"
         else:
-            self.text_calc = self.text_calc + "3"
-        
+            self.text_calc = self.text_calc + "3"        
     def Button4(self):
         
         if self.text_calc == "0":
             self.text_calc = "4"
         else:
-            self.text_calc = self.text_calc + "4"
-        
+            self.text_calc = self.text_calc + "4"        
     def Button5(self):
         
         if self.text_calc == "0":
