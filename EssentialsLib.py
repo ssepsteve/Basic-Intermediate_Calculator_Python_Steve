@@ -94,7 +94,10 @@ class Essentials:
         self.text_calc = str(self.result)
         
     def Open_Par(self):
-        self.text_calc = self.text_calc + "(" 
+        if self.text_calc.endswith("-") or self.text_calc.endswith("+"):
+            self.text_calc = self.text_calc + "("
+        else:
+            self.text_calc = self.text_calc + "*("
         
     def Close_Par(self):
         self.text_calc = self.text_calc + ")"
