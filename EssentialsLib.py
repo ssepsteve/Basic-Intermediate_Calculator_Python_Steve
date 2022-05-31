@@ -56,7 +56,7 @@ class Essentials:
     def Button9(self):
         
         if self.text_calc == "0":
-            self.text_calc = "6"
+            self.text_calc = "9"
         else:
             self.text_calc = self.text_calc + "9"
     def Button0(self):
@@ -83,6 +83,7 @@ class Essentials:
         self.text_calc = "0"
 
     def Sub(self):
+        self.text_calc
         self.text_calc = self.text_calc + "-"
 
     def Result(self):
