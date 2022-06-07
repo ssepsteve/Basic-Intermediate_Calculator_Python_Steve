@@ -12,6 +12,9 @@ while True:
     elif a == "sub" or a == "-":
         main.Sub()
         print(main.text_calc)
+    elif a == "point" or a == ".":
+        main.Point()
+        print(main.text_calc)
     elif a == "res" or a == "=" :
         main.Result()
         print(main.text_calc)
