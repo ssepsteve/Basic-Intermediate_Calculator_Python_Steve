@@ -13,41 +13,7 @@ myLabel.grid(row=0,column=0,columnspan=5)
 def tkSudoButton(n):
     main.sudoButton(n)
     myLabel.config(text=main.text_calc)
-'''
-def tkButton1():
-    main.Button1()
-    myLabel.config(text=main.text_calc)
-def tkButton1():
-    main.Button1()
-    myLabel.config(text=main.text_calc)
-def tkButton2():
-    main.Button2()
-    myLabel.config(text=main.text_calc)
-def tkButton3():
-    main.Button3()
-    myLabel.config(text=main.text_calc)
-def tkButton4():
-    main.Button4()
-    myLabel.config(text=main.text_calc)
-def tkButton5():
-    main.Button5()
-    myLabel.config(text=main.text_calc)
-def tkButton6():
-    main.Button6()
-    myLabel.config(text=main.text_calc)
-def tkButton7():
-    main.Button7()
-    myLabel.config(text=main.text_calc)
-def tkButton8():
-    main.Button8()
-    myLabel.config(text=main.text_calc)
-def tkButton9():
-    main.Button9()
-    myLabel.config(text=main.text_calc)
-def tkButton0():
-    main.Button0()
-    myLabel.config(text=main.text_calc)
-'''
+
 def tkAdd():
     main.Add()
     myLabel.config(text=main.text_calc)
