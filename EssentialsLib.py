@@ -7,6 +7,13 @@ class Essentials:
         self.pulses = 0
     
     #Botones De Numeros:
+    def sudoButton(self,n):
+        if self.text_calc == "0":
+            self.text_calc = str(n)
+        else:
+            self.text_calc = self.text_calc + str(n)
+
+    '''
     def Button1(self):
          
         if self.text_calc == "0":
@@ -64,7 +71,7 @@ class Essentials:
         
         if self.text_calc != "0":
             self.text_calc = self.text_calc + "0"
-    
+    '''
     # Botones De Funciones principales:
 
     def Add(self):

@@ -10,6 +10,10 @@ myLabel = Label(root, text = main.text_calc,width=50,height=5,background="#09e6e
 myLabel.grid(row=0,column=0,columnspan=5)
 
 #Funciones :Pain:
+def tkSudoButton(n):
+    main.sudoButton(n)
+    myLabel.config(text=main.text_calc)
+'''
 def tkButton1():
     main.Button1()
     myLabel.config(text=main.text_calc)
@@ -43,7 +47,7 @@ def tkButton9():
 def tkButton0():
     main.Button0()
     myLabel.config(text=main.text_calc)
-
+'''
 def tkAdd():
     main.Add()
     myLabel.config(text=main.text_calc)
@@ -72,16 +76,16 @@ def tkClose_Par():
     main.Close_Par()
     myLabel.config(text=main.text_calc)
 #Botones
-Button1 = Button(root, text = "1",command=lambda:tkButton1(),width=10,height=5).grid(row = 1, column = 0)
-Button2 = Button(root, text = "2",command=lambda:tkButton2(),width=10,height=5).grid(row = 1, column = 1)
-Button3 = Button(root, text = "3",command=lambda:tkButton3(),width=10,height=5).grid(row = 1, column = 2)
-Button4 = Button(root, text = "4",command=lambda:tkButton4(),width=10,height=5).grid(row = 2, column = 0)
-Button5 = Button(root, text = "5",command=lambda:tkButton5(),width=10,height=5).grid(row = 2, column = 1)
-Button6 = Button(root, text = "6",command=lambda:tkButton6(),width=10,height=5).grid(row = 2, column = 2)
-Button7 = Button(root, text = "7",command=lambda:tkButton7(),width=10,height=5).grid(row = 3, column = 0)
-Button8 = Button(root, text = "8",command=lambda:tkButton8(),width=10,height=5).grid(row = 3, column = 1)
-Button9 = Button(root, text = "9",command=lambda:tkButton9(),width=10,height=5).grid(row = 3, column = 2)
-Button0 = Button(root, text = "0",command=lambda:tkButton0(),width=10,height=5).grid(row = 4, column = 1)
+Button1 = Button(root, text = "1",command=lambda:tkSudoButton(1),width=10,height=5).grid(row = 1, column = 0)
+Button2 = Button(root, text = "2",command=lambda:tkSudoButton(2),width=10,height=5).grid(row = 1, column = 1)
+Button3 = Button(root, text = "3",command=lambda:tkSudoButton(3),width=10,height=5).grid(row = 1, column = 2)
+Button4 = Button(root, text = "4",command=lambda:tkSudoButton(4),width=10,height=5).grid(row = 2, column = 0)
+Button5 = Button(root, text = "5",command=lambda:tkSudoButton(5),width=10,height=5).grid(row = 2, column = 1)
+Button6 = Button(root, text = "6",command=lambda:tkSudoButton(6),width=10,height=5).grid(row = 2, column = 2)
+Button7 = Button(root, text = "7",command=lambda:tkSudoButton(7),width=10,height=5).grid(row = 3, column = 0)
+Button8 = Button(root, text = "8",command=lambda:tkSudoButton(8),width=10,height=5).grid(row = 3, column = 1)
+Button9 = Button(root, text = "9",command=lambda:tkSudoButton(9),width=10,height=5).grid(row = 3, column = 2)
+Button0 = Button(root, text = "0",command=lambda:tkSudoButton(0),width=10,height=5).grid(row = 4, column = 1)
 
 Ac = Button(root,text="AC",command=lambda: tkAC(),width=10,height=5).grid(row=1,column=3)
 Del = Button(root,text="⌫",width=10,height=5) #'''Falta comando'''
