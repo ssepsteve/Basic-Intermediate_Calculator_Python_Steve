@@ -36,34 +36,34 @@ while True:
         main.AC()
         print(main.text_calc)
     elif a == "1":
-        main.Button1()
+        main.sudoButton(1)
         print(main.text_calc)
     elif a == "2":
-        main.Button2()
+        main.sudoButton(2)
         print(main.text_calc)
     elif a == "3":
-        main.Button3()
+        main.sudoButton(3)
         print(main.text_calc)
     elif a == "4":
-        main.Button4()
+        main.sudoButton(4)
         print(main.text_calc)
     elif a == "5":
-        main.Button5()
+        main.sudoButton(5)
         print(main.text_calc)
     elif a == "6":
-        main.Button6()
+        main.sudoButton(6)
         print(main.text_calc)
     elif a == "7":
-        main.Button7()
+        main.sudoButton(7)
         print(main.text_calc)
     elif a == "8":
-        main.Button8()
+        main.sudoButton(8)
         print(main.text_calc)
     elif a == "9":
-        main.Button9()
+        main.sudoButton(9)
         print(main.text_calc)
     elif a == "0":
-        main.Button0()
+        main.sudoButton(0)
         print(main.text_calc)
 
 print("Program End")

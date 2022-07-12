@@ -1,4 +1,5 @@
-
+from math import pi
+import math
 class Essentials:
     
     def __init__(self):
@@ -12,8 +13,7 @@ class Essentials:
             self.text_calc = str(n)
         else:
             self.text_calc = self.text_calc + str(n)
-
-    
+  
     # Botones De Funciones principales:
 
     def Add(self):
@@ -68,4 +68,13 @@ class Essentials:
     def Neg_or_Pos(self):
         pass
 
-
+class Scientific(Essentials):
+    x = round(math.pi,4)
+    def piButton(self, x):
+        
+        if self.text_calc == "0" :
+            self.text_calc = str(math.pi)
+        elif self.text_calc.endswith("(","+","-","*","/"):
+            self.text_calc = self.text_calc + str(math.pi)
+        else:
+            self.text_calc = self.text_calc + "*"+str(math.pi)
