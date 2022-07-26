@@ -6,11 +6,14 @@ class Essentials:
         self.result = 0
         self.text_calc = "0"
         self.pulses = 0
+        
     
     #Botones De Numeros:
     def sudoButton(self,n):
         if self.text_calc == "0":
             self.text_calc = str(n)
+        elif self.text_calc.endswith(")"):
+            self.text_calc = self.text_calc+"*"+str(n)
         else:
             self.text_calc = self.text_calc + str(n)
   
@@ -68,13 +71,21 @@ class Essentials:
     def Neg_or_Pos(self):
         pass
 
-class Scientific(Essentials):
-    x = round(math.pi,4)
+    '''Cientifica'''
     def piButton(self, x):
         
         if self.text_calc == "0" :
-            self.text_calc = str(math.pi)
-        elif self.text_calc.endswith("(","+","-","*","/"):
-            self.text_calc = self.text_calc + str(math.pi)
+            self.text_calc = str(x)
+        elif self.text_calc.endswith("(")or self.text_calc.endswith("+") or self.text_calc.endswith("-") or self.text_calc.endswith("*")or self.text_calc.endswith("/"):
+            self.text_calc = self.text_calc + str(x)
         else:
-            self.text_calc = self.text_calc + "*"+str(math.pi)
+            self.text_calc = self.text_calc + "*"+str(x)
+
+    def square(self):
+        self.text_calc = self.text_calc + "**2"
+
+    def powe(self):
+        self.text_calc = self.text_calc + "**"
+    
+    
+   

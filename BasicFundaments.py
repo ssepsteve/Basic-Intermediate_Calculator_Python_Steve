@@ -3,11 +3,15 @@ import EssentialsLib as Lib1
 
 main = Lib1.Essentials()
 
+
 while True:
     a = str(input("Operation or num: "))
     a = a.lower()
     if a == "add" or a == "+":
         main.Add()
+        print(main.text_calc)
+    elif a == "pi":
+        main.piButton(round(Lib1.pi,4))
         print(main.text_calc)
     elif a == "sub" or a == "-":
         main.Sub()
@@ -64,6 +68,14 @@ while True:
         print(main.text_calc)
     elif a == "0":
         main.sudoButton(0)
+        print(main.text_calc)
+   
+    elif a == "pow":
+        main.powe()
+        print(main.text_calc)
+
+    elif a == "square":
+        main.square()
         print(main.text_calc)
 
 print("Program End")
