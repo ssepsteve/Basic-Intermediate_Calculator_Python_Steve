@@ -109,7 +109,7 @@ class Essentials:
         
         if self.opPlace == "0" :
             self.opPlace = str(x)
-        elif self.opPlace.endswith("(")or self.opPlace.endswith("+") or self.opPlace.endswith("-") or self.opPlace.endswith("*")or self.opPlace.endswith("/"):
+        elif self.opPlace.endswith("(")or self.opPlace.endswith("+") or self.opPlace.endswith("-") or self.opPlace.endswith("x")or self.opPlace.endswith("÷"):
             self.opPlace = self.opPlace + str(x)
         else:
             self.opPlace = self.opPlace + "x"+str(x)
@@ -117,7 +117,7 @@ class Essentials:
     def eulerButton(self, e):
         if self.opPlace == "0" :
             self.opPlace = str(e)
-        elif self.opPlace.endswith("(")or self.opPlace.endswith("+") or self.opPlace.endswith("-") or self.opPlace.endswith("*")or self.opPlace.endswith("/"):
+        elif self.opPlace.endswith("(")or self.opPlace.endswith("+") or self.opPlace.endswith("-") or self.opPlace.endswith("x")or self.opPlace.endswith("÷"):
             self.opPlace = self.opPlace + str(e)
         else:
             self.opPlace = self.opPlace + "x"+str(e)
