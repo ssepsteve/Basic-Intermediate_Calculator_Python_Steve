@@ -1,3 +1,6 @@
+from sympy import I, root
+
+
 class Essentials:
     
     def __init__(self):
@@ -6,6 +9,7 @@ class Essentials:
         self.opPlace = '0'
         self.pulses = 0
         self.numbers = {1,2,3,4,5,6,7,8,9}
+        self.wall1 = "0"
         
     
     #Botones De Numeros:
@@ -39,6 +43,7 @@ class Essentials:
         self.opPlace
         self.opPlace = "0"
         self.text_calc = "0"
+        self.wall1 = "0"
         self.result = 0
 
     def Sub(self):
@@ -48,13 +53,36 @@ class Essentials:
 
     def Result(self,pi,eu):
         for i in self.opPlace:
+            if self.wall1 == "0" and i != "√":
+                self.wall1 = i
+            elif self.wall1 != "0" and i != "√" and i != ")":
+                self.wall1 = self.wall1 + i
+            elif i == ")" and self.pulses == 1:
+                self.wall1 = self.wall1 + ")^1÷2)"
+                self.pulses = 0
+            elif i == "√":
+                self.wall1 = self.wall1 + "("
+                self.pulses = self.pulses + 1           
+            else:
+                self.wall1 = self.wall1 + i
+                
+                '''for rootIndex in self.opPlace[p+1:]:
+                    if rootIndex != ")":
+                        self.wall1 = self.wall1 + rootIndex
+                    else:
+                        self.wall1 = self.wall1 + ""'''
+
+            
+                        
+        for i in self.wall1:
             if i in str(self.numbers):
                 if self.text_calc == "0":
                     self.text_calc = str(i)
                 elif self.text_calc.endswith(")"):
                     self.text_calc = self.text_calc+"*"+str(i)
                 else:
-                    self.text_calc = self.text_calc + str(i)
+                    self.text_calc = self.text_calc + str(i)      
+
             elif i == "π":
                 if self.text_calc == "0":
                     self.text_calc = str(pi)
@@ -86,6 +114,8 @@ class Essentials:
         self.pulses = 0
         if self.opPlace.endswith("-") or self.opPlace.endswith("+"):
             self.opPlace = self.opPlace + "("
+        elif self.opPlace.endswith("("):
+            self.opPlace = self.opPlace + "+("
         else:
             self.opPlace = self.opPlace + "x("
         
@@ -128,6 +158,6 @@ class Essentials:
     def powe(self):
         self.opPlace = self.opPlace + "^"
     
-    '''def root(self):
-        self.opPlace = self.opPlace + "√"'''
+    def root(self):
+        self.opPlace = self.opPlace + "√("
    

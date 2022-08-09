@@ -78,7 +78,7 @@ while True:
     elif a == "square":
         main.square()
         print(main.opPlace)
-    '''elif a == "root":
+    elif a == "root":
         main.root()
-        print(main.opPlace)'''
+        print(main.opPlace)
 print("Program End")
