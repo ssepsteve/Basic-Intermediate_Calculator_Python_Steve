@@ -1,4 +1,4 @@
-from sympy import I, root
+
 
 
 class Essentials:
@@ -8,8 +8,11 @@ class Essentials:
         self.text_calc = "0"
         self.opPlace = '0'
         self.pulses = 0
-        self.numbers = {1,2,3,4,5,6,7,8,9}
+        self.numbers = {1,2,3,4,5,6,7,8,9,"π","e"}
+        self.operators = {"+","-","x","÷"}
+        self.parenthesis = ["(",")"]
         self.wall1 = "0"
+        self.wall2 = "0"
         
     
     #Botones De Numeros:
@@ -52,6 +55,7 @@ class Essentials:
         self.pulses = 0
 
     def Result(self,pi,eu):
+        #pared 1
         for i in self.opPlace:
             if self.wall1 == "0" and i != "√":
                 self.wall1 = i
@@ -60,20 +64,26 @@ class Essentials:
             elif i == ")" and self.pulses == 1:
                 self.wall1 = self.wall1 + ")^1÷2)"
                 self.pulses = 0
+            elif i == "√" and self.opPlace.startswith("√"):
+                self.wall1 = "("
+                self.pulses = self.pulses + 1
             elif i == "√":
                 self.wall1 = self.wall1 + "("
                 self.pulses = self.pulses + 1           
             else:
                 self.wall1 = self.wall1 + i
                 
-                '''for rootIndex in self.opPlace[p+1:]:
-                    if rootIndex != ")":
-                        self.wall1 = self.wall1 + rootIndex
-                    else:
-                        self.wall1 = self.wall1 + ""'''
+        #pared 2 (correccion parentesis)
+        '''for i in self.wall1:
+            if self.wall1 == "(":
+                self.pulses == 1
+            elif self.wall1 == "(" and self.pulses == 1:
 
+            else:
+                self.wall2 == str(i)
+                self.pulses == 0'''
             
-                        
+        #resultado                        
         for i in self.wall1:
             if i in str(self.numbers):
                 if self.text_calc == "0":
@@ -103,6 +113,9 @@ class Essentials:
                 self.text_calc = self.text_calc + "/"
             elif i == "^":
                 self.text_calc = self.text_calc + "**"
+            elif i == "(" and self.wall1.startswith("(") and self.pulses == 0:
+                self.text_calc = str(i)
+                self.pulses +=1
             else:
                 self.text_calc = self.text_calc + str(i)
 
@@ -159,5 +172,13 @@ class Essentials:
         self.opPlace = self.opPlace + "^"
     
     def root(self):
-        self.opPlace = self.opPlace + "√("
+        if self.opPlace == "0":
+            self.opPlace = "√("
+        elif self.opPlace in str(self.numbers):
+            self.opPlace = self.opPlace + "x√("
+        else:
+            self.opPlace = self.opPlace + "√("
+        
+
+
    

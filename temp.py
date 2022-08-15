@@ -1,1 +1,4 @@
-print(eval('4/2+4-(+(((9)**1/2)+((4)**1/2))**2)'))
+import math
+
+x = math.sqrt(3+6)
+print(x)
