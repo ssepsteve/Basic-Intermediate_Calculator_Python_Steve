@@ -1,4 +1,4 @@
-import math
-
-x = math.sqrt(3+6)
-print(x)
+from math import sqrt
+x = (sqrt(eval('(+(2)+(4))')))
+z = '' + str(x)
+print(type(z))

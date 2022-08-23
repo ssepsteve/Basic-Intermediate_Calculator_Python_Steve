@@ -1,4 +1,4 @@
-
+import math
 
 
 class Essentials:
@@ -12,7 +12,8 @@ class Essentials:
         self.operators = {"+","-","x","÷"}
         self.parenthesis = ["(",")"]
         self.wall1 = "0"
-        self.wall2 = "0"
+        self.temp = "0"
+        self.tempy = 0
         
     
     #Botones De Numeros:
@@ -56,33 +57,38 @@ class Essentials:
 
     def Result(self,pi,eu):
         #pared 1
-        for i in self.opPlace:
-            if self.wall1 == "0" and i != "√":
-                self.wall1 = i
-            elif self.wall1 != "0" and i != "√" and i != ")":
-                self.wall1 = self.wall1 + i
-            elif i == ")" and self.pulses == 1:
-                self.wall1 = self.wall1 + ")^1÷2)"
-                self.pulses = 0
-            elif i == "√" and self.opPlace.startswith("√"):
-                self.wall1 = "("
-                self.pulses = self.pulses + 1
-            elif i == "√":
-                self.wall1 = self.wall1 + "("
-                self.pulses = self.pulses + 1           
-            else:
-                self.wall1 = self.wall1 + i
-                
-        #pared 2 (correccion parentesis)
-        '''for i in self.wall1:
-            if self.wall1 == "(":
-                self.pulses == 1
-            elif self.wall1 == "(" and self.pulses == 1:
+        copy = ''+self.opPlace 
+        #ejemplo: 100+√((2)+(4))
+        while "√" in copy :
 
+            x = self.opPlace.index("√")
+            for num,i in enumerate(self.opPlace[x+1:]):
+                
+                if i == "(" and self.opPlace[x+1:].startswith("(") and self.temp == "0":
+                    self.pulses +=1
+                    self.temp = i
+                elif i == "(":
+                    self.pulses +=1
+                    self.temp = self.temp+i
+                elif i == ")" and self.pulses != 1:
+                    self.temp = self.temp+i
+                    self.pulses -= 1
+                elif i == ")" and self.pulses == 1:
+                    self.temp = self.temp+i
+                    self.tempy = num
+                    self.pulses = 0
+                    break
+                else:
+                    self.temp = self.temp+i
+            if x == 0:
+                self.wall1 = ''+str(math.sqrt(eval(self.temp)))
+                self.temp = "0"
+                break
             else:
-                self.wall2 == str(i)
-                self.pulses == 0'''
-            
+                self.wall1 = str(self.opPlace[:x])+str(math.sqrt(eval(self.temp)))
+        
+                
+        
         #resultado                        
         for i in self.wall1:
             if i in str(self.numbers):
