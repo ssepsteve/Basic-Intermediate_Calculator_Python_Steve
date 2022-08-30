@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 
-x = math.sqrt(3+6)
+x = str(eval('print("helloworld")',{},{"r":sqrt}))
 print(x)
