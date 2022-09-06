@@ -71,6 +71,9 @@ while True:
         print(main.display)
     elif a == "0":
         main.sudoButton(0)
+        print(main.display)
+    elif a == "sqpow":
+        main.squarePow()
         print(main.display) 
     elif a == "pow":
         main.powe()

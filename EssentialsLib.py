@@ -164,7 +164,7 @@ class Essentials:
             self.opPlace = self.opPlace + str(e)
         else:
             self.opPlace = self.opPlace + "*"+str(e)
-    def square(self):
+    def squarePow(self):
         self.opPlace = self.opPlace + "^2"
         self.display = self.display + "^2"
     def powe(self):
