@@ -8,7 +8,7 @@ class Essentials:
         self.text_calc = "0"
         self.opPlace = '0'
         self.pulses = 0
-        self.numbers = {1,2,3,4,5,6,7,8,9,"π","e"}
+        self.numbers = (0,1,2,3,4,5,6,7,8,9,"π","e")
         self.operators = {"+","-","x","÷"}
         self.parenthesis = ["(",")"]
         self.display = "0"    
@@ -174,14 +174,14 @@ class Essentials:
     def root(self):
         if self.opPlace == "0":
             self.opPlace = "r("
-        elif self.opPlace in str(self.numbers):
+        elif self.opPlace[-1] in str(self.numbers):
             self.opPlace = self.opPlace + "*r("
         else:
             self.opPlace = self.opPlace + "r("
         
         if self.display == "0":
             self.display = "√("
-        elif self.display in str(self.numbers):
+        elif self.display[-1] in str(self.numbers):
             self.display = self.display + "x√("
         else:
             self.display = self.display + "√("
