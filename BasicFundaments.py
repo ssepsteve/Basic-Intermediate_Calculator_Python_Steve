@@ -84,4 +84,11 @@ while True:
     elif a == "root":
         main.root()
         print(main.display)
+    elif a == "ln":
+        main.ln()
+        print(main.display)
+    elif a == "log":
+        main.log()
+        print(main.display)
+
 print("Program End")

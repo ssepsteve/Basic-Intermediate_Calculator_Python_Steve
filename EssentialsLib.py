@@ -1,6 +1,10 @@
 
 import math
 
+def log10Fun(i):
+    x = math.log(i,10)
+    return x
+
 class Essentials:
     
     def __init__(self):
@@ -12,6 +16,9 @@ class Essentials:
         self.operators = {"+","-","x","÷"}
         self.parenthesis = ["(",")"]
         self.display = "0"    
+    
+    
+
     #Botones De Numeros:
     def sudoButton(self,n):
         if self.opPlace == "0":
@@ -95,10 +102,14 @@ class Essentials:
                 self.pulses +=1
             elif i == "r" and self.opPlace.startswith("r") and self.text_calc == "0":
                 self.text_calc = str(i)
+            elif i == "l" and self.opPlace.startswith("l")and self.text_calc == "0":
+                self.text_calc = str(i)
+            elif i == "L" and self.opPlace.startswith("L")and self.text_calc == "0":
+                self.text_calc = str(i)
             else:
                 self.text_calc = self.text_calc + str(i)
 
-        self.result = eval(self.text_calc,{},{"r":math.sqrt}) #se añade sqrt como r para locals de eval
+        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun}) #se añade sqrt como r para locals de eval
         self.display = str(self.result)
         self.pulses = 0
         
@@ -134,6 +145,7 @@ class Essentials:
 
 
     '''Cientifica'''
+    
     def piButton(self, x):
         
         if self.opPlace == "0" :
@@ -185,6 +197,34 @@ class Essentials:
             self.display = self.display + "x√("
         else:
             self.display = self.display + "√("
+    def ln(self):
+        if self.opPlace == "0":
+            self.opPlace = "l("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*l("
+        
+        if self.display == "0":
+            self.display = "ln("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xln("
+        else:
+            self.display = self.display + "ln("
+    
+
+    def log(self):
+        if self.opPlace == "0":
+            self.opPlace = "L("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*L("
+        
+        if self.display == "0":
+            self.display = "log("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xlog("
+        else:
+            self.display = self.display + "log("\
+    
+       
         
 
 
