@@ -3,17 +3,10 @@ import math
 
 degree = "DEG" 
 
-def log10Fun(i):
-    x = math.log(i,10)
-    return x
-
-def sinFun(i):
-    if Essentials.degree == "RAD":
-        x = math.sin(i)
-        return x
-    else:
-        x = math.sin(math.radians(i))
-        return x
+log10Fun = lambda i: math.log(i,10)
+#sintaxis lambda: variable_name = lambda parameters : expression if(condition) else expression
+sinFun = lambda i:round(math.sin(i),10) if degree == "RAD" else round(math.sin(math.radians(i)),10)
+cosFun = lambda i:round(math.cos(i),10) if degree == "RAD" else round(math.cos(math.radians(i)),10)
     
 
 class Essentials:
@@ -25,8 +18,9 @@ class Essentials:
         self.text_calc = "0"
         self.opPlace = '0'
         self.pulses = 0
-        self.numbers = (0,1,2,3,4,5,6,7,8,9,"π","e")
+        self.numbers = (0,1,2,3,4,5,6,7,8,9)
         self.operators = {"+","-","x","÷"}
+        self.operators2 = {"+","-","*","/"}
         self.parenthesis = ["(",")"]
         self.display = "0" 
         self.degree = "DEG"
@@ -63,8 +57,8 @@ class Essentials:
         self.pulses = 0
 
     def Multi(self):
-        self.display = self.display + "X"
         self.opPlace = self.opPlace + "*"
+        self.display = self.display + "x"
         self.pulses = 0
 
     def AC(self):
@@ -124,11 +118,14 @@ class Essentials:
                 self.text_calc = str(i)
             elif i == "s" and self.opPlace.startswith("s")and self.text_calc == "0":
                 self.text_calc = str(i)
+            elif i == "c" and self.opPlace.startswith("c")and self.text_calc == "0":
+                self.text_calc = str(i)
             else:
                 self.text_calc = self.text_calc + str(i)
 
-        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun,"s":sinFun}) #se añade sqrt como r para locals de eval
+        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun,"s":sinFun,"c":cosFun}) #se añade sqrt como r para locals de eval
         self.display = str(self.result)
+        self.text_calc = "0" #temporal
         self.pulses = 0
         
     def Open_Par(self):
@@ -168,18 +165,26 @@ class Essentials:
         
         if self.opPlace == "0" :
             self.opPlace = str(x)
-        elif self.opPlace.endswith("(" or "+" or "-" or "*" or "/"):
-            self.opPlace = self.opPlace + str(x)
-        else:
+        elif self.opPlace[-1] in str(self.numbers):
             self.opPlace = self.opPlace + "*"+str(x)
-        
+        elif self.opPlace[-1] in self.operators2:
+            self.opPlace = self.opPlace + str(x)
+        elif self.opPlace[-1] == ")":
+            self.opPlace = self.opPlace + "*"+str(x)
+        else:
+            self.opPlace = self.opPlace + str(x)
+
         if self.display == "0" :
             self.display = str(x)
-        elif self.display.endswith("(" or "+" or "-" or "x" or "÷"):
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "x"+str(x) 
+        elif self.display[-1] in self.operators:
             self.display = self.display + str(x)
+        elif self.display[-1] == ")":
+            self.display = self.display + "x"+str(x) 
         else:
-            self.display = self.display + "x"+str(x)
-    
+            self.display = self.display + str(x)
+
     def eulerButton(self, e):
         if self.display == "0" :
             self.display = str(e)
@@ -244,10 +249,11 @@ class Essentials:
         else:
             self.display = self.display + "log("
     def radOrDeg(self):
-        if self.degree == "DEG":
-            self.degree = "RAD"
+        global degree
+        if degree == "DEG":
+            degree = "RAD"
         else:
-            self.degree = "DEG"
+            degree = "DEG"
    
     def sin(self):
         if self.opPlace == "0":
@@ -263,5 +269,20 @@ class Essentials:
             self.display = self.display + "xsin("
         else:
             self.display = self.display + "sin("
+    
+    def cos(self):
+        if self.opPlace == "0":
+            self.opPlace = "c("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*c("
+        else:
+            self.opPlace = self.display + "c("
+        
+        if self.display == "0":
+            self.display = "cos("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xcos("
+        else:
+            self.display = self.display + "cos("
        
         

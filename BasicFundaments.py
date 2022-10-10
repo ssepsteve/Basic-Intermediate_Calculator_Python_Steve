@@ -23,7 +23,7 @@ while True:
         main.Point()
         print(main.display)
     elif a == "res" or a == "=" :
-        main.Result(round(math.pi,4),round(math.e,4))
+        main.Result(math.pi,math.e)
         print(main.display)
     elif a == "exit":
         break     
@@ -93,8 +93,11 @@ while True:
     elif a == "degree":
         main.radOrDeg()
         print(main.display)
-        print(main.degree)
+        print(Lib1.degree)
     elif a == "sin":
         main.sin()
+        print(main.display)
+    elif a ==  "cos":
+        main.cos()
         print(main.display)
 print("Program End")
