@@ -90,5 +90,11 @@ while True:
     elif a == "log":
         main.log()
         print(main.display)
-
+    elif a == "degree":
+        main.radOrDeg()
+        print(main.display)
+        print(main.degree)
+    elif a == "sin":
+        main.sin()
+        print(main.display)
 print("Program End")
