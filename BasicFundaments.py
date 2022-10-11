@@ -100,4 +100,7 @@ while True:
     elif a ==  "cos":
         main.cos()
         print(main.display)
+    elif a == "tan":
+        main.tan()
+        print(main.display)
 print("Program End")

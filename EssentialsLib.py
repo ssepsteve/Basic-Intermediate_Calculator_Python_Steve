@@ -5,9 +5,32 @@ degree = "DEG"
 
 log10Fun = lambda i: math.log(i,10)
 #sintaxis lambda: variable_name = lambda parameters : expression if(condition) else expression
-sinFun = lambda i:round(math.sin(i),10) if degree == "RAD" else round(math.sin(math.radians(i)),10)
-cosFun = lambda i:round(math.cos(i),10) if degree == "RAD" else round(math.cos(math.radians(i)),10)
-    
+#sinFun = lambda i:round(math.sin(i),10) if degree == "RAD" else round(math.sin(math.radians(i)),10)
+#cosFun = lambda i:round(math.cos(i),10) if degree == "RAD" else round(math.cos(math.radians(i)),10)
+#tanFun = lambda i:round(math.tan(i),10) if degree == "RAD" else round(math.tan(math.radians(i)),10)
+
+def sinFun(i):
+    if degree == "RAD":
+        return round(math.sin(i),10)
+    else:
+        return round(math.sin(math.radians(i)),10)
+
+def cosFun(i):
+    if degree == "RAD":
+        return round(math.cos(i),10)
+    else:
+        return round(math.cos(math.radians(i)),10)
+
+def tanFun(i):
+    infinite = "∞"
+    if degree == "RAD" and i%math.radians(90) != 0 and i%math.radians(180):
+        return round(math.tan(i),10)
+    elif degree == "DEG" and i%90 != 0:
+        return round(math.tan(math.radians(i)),10)
+    elif degree == "RAD" and i%math.radians(90) == 0 and i%math.radians(180) != 0:
+        return infinite
+    elif degree == "DEG" and i%90 == 0:
+        return infinite
 
 class Essentials:
     
@@ -52,13 +75,28 @@ class Essentials:
 
 
     def Div(self):
-        self.opPlace = self.opPlace + "/"
-        self.display = self.display + "÷"
+        if self.opPlace[-1] in self.operators2:
+            self.opPlace = self.opPlace[:-1]+"/"
+        else:
+            self.opPlace = self.opPlace + "/"
+        
+        if self.display[-1] in self.operators:
+            self.display = self.display[:-1]+"÷"
+        else:
+            self.display = self.display + "÷"
+        
         self.pulses = 0
 
     def Multi(self):
-        self.opPlace = self.opPlace + "*"
-        self.display = self.display + "x"
+        if self.opPlace[-1] in self.operators2:
+            self.opPlace = self.opPlace[:-1]+"*"
+        else:
+            self.opPlace = self.opPlace + "*"
+        
+        if self.display[-1] in self.operators:
+            self.display = self.display[:-1]+"x"
+        else:
+            self.display = self.display + "x"
         self.pulses = 0
 
     def AC(self):
@@ -120,10 +158,12 @@ class Essentials:
                 self.text_calc = str(i)
             elif i == "c" and self.opPlace.startswith("c")and self.text_calc == "0":
                 self.text_calc = str(i)
+            elif i == "t" and self.opPlace.startswith("t")and self.text_calc == "0":
+                self.text_calc = str(i)
             else:
                 self.text_calc = self.text_calc + str(i)
 
-        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun,"s":sinFun,"c":cosFun}) #se añade sqrt como r para locals de eval
+        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun}) #se añade sqrt como r para locals de eval
         self.display = str(self.result)
         self.text_calc = "0" #temporal
         self.pulses = 0
@@ -186,19 +226,28 @@ class Essentials:
             self.display = self.display + str(x)
 
     def eulerButton(self, e):
-        if self.display == "0" :
-            self.display = str(e)
-        elif self.display.endswith("(" or "+" or "-" or "x" or "÷"):
-            self.display = self.opPlace + str(e)
-        else:
-            self.display = self.display + "x"+str(e)
-        
         if self.opPlace == "0" :
             self.opPlace = str(e)
-        elif self.opPlace.endswith("(" or "+" or "-" or "x" or "÷"):
-            self.opPlace = self.opPlace + str(e)
-        else:
+        elif self.opPlace[-1] in str(self.numbers):
             self.opPlace = self.opPlace + "*"+str(e)
+        elif self.opPlace[-1] in self.operators2:
+            self.opPlace = self.opPlace + str(e)
+        elif self.opPlace[-1] == ")":
+            self.opPlace = self.opPlace + "*"+str(e)
+        else:
+            self.opPlace = self.opPlace + str(e)
+
+        if self.display == "0" :
+            self.display = str(e)
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "x"+str(e) 
+        elif self.display[-1] in self.operators:
+            self.display = self.display + str(e)
+        elif self.display[-1] == ")":
+            self.display = self.display + "x"+str(e) 
+        else:
+            self.display = self.display + str(e)
+
     def squarePow(self):
         self.opPlace = self.opPlace + "^2"
         self.display = self.display + "^2"
@@ -284,5 +333,18 @@ class Essentials:
             self.display = self.display + "xcos("
         else:
             self.display = self.display + "cos("
-       
+    def tan(self):
+        if self.opPlace == "0":
+            self.opPlace = "t("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*t("
+        else:
+            self.opPlace = self.display + "t("
+        
+        if self.display == "0":
+            self.display = "tan("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xtan("
+        else:
+            self.display = self.display + "tan("   
         

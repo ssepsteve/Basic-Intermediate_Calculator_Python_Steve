@@ -1,1 +1,3 @@
-print(eval("-0.0-0.0*0.5"))
+import math
+
+print(360%180)
