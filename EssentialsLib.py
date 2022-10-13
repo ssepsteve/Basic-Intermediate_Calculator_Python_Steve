@@ -22,15 +22,15 @@ def cosFun(i):
         return round(math.cos(math.radians(i)),10)
 
 def tanFun(i):
-    infinite = "∞"
-    if degree == "RAD" and i%math.radians(90) != 0 and i%math.radians(180):
+    infinite = "IND"
+    if degree == "RAD" and i%math.radians(90) == 0 and i%math.radians(180) != 0:
+        return infinite
+    elif degree == "DEG" and i%90 == 0 and i%180 != 0:
+        return infinite
+    elif degree == "RAD" and i%math.radians(180) != 90:
         return round(math.tan(i),10)
-    elif degree == "DEG" and i%90 != 0:
+    elif degree == "DEG" and i%180 != 90:
         return round(math.tan(math.radians(i)),10)
-    elif degree == "RAD" and i%math.radians(90) == 0 and i%math.radians(180) != 0:
-        return infinite
-    elif degree == "DEG" and i%90 == 0:
-        return infinite
 
 class Essentials:
     
@@ -42,7 +42,7 @@ class Essentials:
         self.opPlace = '0'
         self.pulses = 0
         self.numbers = (0,1,2,3,4,5,6,7,8,9)
-        self.operators = {"+","-","x","÷"}
+        self.operators = {"+","-","x","÷","^"}
         self.operators2 = {"+","-","*","/"}
         self.parenthesis = ["(",")"]
         self.display = "0" 
@@ -162,7 +162,6 @@ class Essentials:
                 self.text_calc = str(i)
             else:
                 self.text_calc = self.text_calc + str(i)
-
         self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun}) #se añade sqrt como r para locals de eval
         self.display = str(self.result)
         self.text_calc = "0" #temporal
@@ -170,14 +169,14 @@ class Essentials:
         
     def Open_Par(self):
         self.pulses = 0
-        if self.display.endswith("-") or self.display.endswith("+"):
-            self.display = self.opPlace + "("
+        if self.display[-1] in self.operators:
+            self.display = self.display + "("
         elif self.display.endswith("("):
             self.display = self.display + "+("
         else:
             self.display = self.display + "x("
 
-        if self.opPlace.endswith("-") or self.opPlace.endswith("+"):
+        if self.opPlace[-1] in self.operators2:
             self.opPlace = self.opPlace + "("
         elif self.opPlace.endswith("("):
             self.opPlace = self.opPlace + "+("
@@ -252,7 +251,7 @@ class Essentials:
         self.opPlace = self.opPlace + "^2"
         self.display = self.display + "^2"
     def powe(self):
-        self.opPlace = self.opPlace + "^"
+        self.opPlace = self.opPlace + "**"
         self.display = self.display + "^"
     
     def root(self):
