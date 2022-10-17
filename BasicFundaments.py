@@ -103,4 +103,13 @@ while True:
     elif a == "tan":
         main.tan()
         print(main.display)
+    elif a == "abs":
+        main.abs()
+        print(main.display)
+    elif a == "erase":
+        main.erase()
+        print(main.display)
+    elif a == "help":
+        print("Bienvenido a una simple calculadora hecha en python por Steve Espitia :) \nEste programa esta construido principalmente con palabras en ingles \npor ejemplo: Seno en español se escribe como sen() \npero en este programa decidi ponerlo como sin() \ncon el fin de que a la hora de construir el programa no me confunda con las funciones de las librerias que decidi usar \nen fin, estoy seguro de que no desplegaste help solo porque querias saber porque las palabras estan en ingles \nasi que a continuacion te mostrare cuales son las palabras que identifica este programa \nNumero(1,2,3,4,5...) = Introduce el numero que deseas poner \nSuma(+) = Introduce + o add \nResta(-) = Introduce - o sub \nMuliplicacion(x) = Introduce * o multi\nDivision(÷) = Introduce div o / \nBorrar Todo = Introduce AC o del\nBorar Individualmente = Introduce erase \nResultado = Introduce = o res\nForzar Cerrado Programa = Introduce exit\n")
+        print(main.display)
 print("Program End")

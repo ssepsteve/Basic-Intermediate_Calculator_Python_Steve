@@ -4,6 +4,7 @@ import math
 degree = "DEG" 
 
 log10Fun = lambda i: math.log(i,10)
+lnFun = lambda i: math.log(i,math.e)
 #sintaxis lambda: variable_name = lambda parameters : expression if(condition) else expression
 #sinFun = lambda i:round(math.sin(i),10) if degree == "RAD" else round(math.sin(math.radians(i)),10)
 #cosFun = lambda i:round(math.cos(i),10) if degree == "RAD" else round(math.cos(math.radians(i)),10)
@@ -11,15 +12,15 @@ log10Fun = lambda i: math.log(i,10)
 
 def sinFun(i):
     if degree == "RAD":
-        return round(math.sin(i),10)
+        return str(round(math.sin(i),10))
     else:
-        return round(math.sin(math.radians(i)),10)
+        return str(round(math.sin(math.radians(i)),10))
 
 def cosFun(i):
     if degree == "RAD":
-        return round(math.cos(i),10)
+        return str(round(math.cos(i),10))
     else:
-        return round(math.cos(math.radians(i)),10)
+        return str(round(math.cos(math.radians(i)),10))
 
 def tanFun(i):
     infinite = "IND"
@@ -28,9 +29,13 @@ def tanFun(i):
     elif degree == "DEG" and i%90 == 0 and i%180 != 0:
         return infinite
     elif degree == "RAD" and i%math.radians(180) != 90:
-        return round(math.tan(i),10)
+        return str(round(math.tan(i),10))
     elif degree == "DEG" and i%180 != 90:
-        return round(math.tan(math.radians(i)),10)
+        return str(round(math.tan(math.radians(i)),10))
+
+absoluteValue = lambda i: abs(i)
+
+
 
 class Essentials:
     
@@ -41,12 +46,13 @@ class Essentials:
         self.text_calc = "0"
         self.opPlace = '0'
         self.pulses = 0
-        self.numbers = (0,1,2,3,4,5,6,7,8,9)
+        self.numbers = ["0","1","2","3","4","5","6","7","8","9"]
         self.operators = {"+","-","x","÷","^"}
         self.operators2 = {"+","-","*","/"}
         self.parenthesis = ["(",")"]
         self.display = "0" 
         self.degree = "DEG"
+        self.fourFuns = ("log(","sin(","cos(","tan(","abs(")
     
     
 
@@ -115,7 +121,8 @@ class Essentials:
 
     def Result(self,pi,eu):
   
-        #resultado                        
+        #resultado       
+        
         for i in self.opPlace:
             if i in str(self.numbers):
                 if self.text_calc == "0":
@@ -124,21 +131,6 @@ class Essentials:
                     self.text_calc = self.text_calc+"*"+str(i)
                 else:
                     self.text_calc = self.text_calc + str(i)      
-
-            elif i == "π":
-                if self.text_calc == "0":
-                    self.text_calc = str(pi)
-                elif self.text_calc.endswith(")"):
-                    self.text_calc = self.text_calc+"*"+str(pi)
-                else:
-                    self.text_calc = self.text_calc + str(pi)
-            elif i == "e":
-                if self.text_calc == "0":
-                    self.text_calc = str(eu)
-                elif self.text_calc.endswith(")"):
-                    self.text_calc = self.text_calc+"*"+str(pi)
-                else:
-                    self.text_calc = self.text_calc + str(pi)
             elif i == "x":
                 self.text_calc = self.text_calc + "*"
             elif i == "÷":
@@ -160,10 +152,17 @@ class Essentials:
                 self.text_calc = str(i)
             elif i == "t" and self.opPlace.startswith("t")and self.text_calc == "0":
                 self.text_calc = str(i)
+            elif i == "a" and self.opPlace.startswith("a")and self.text_calc == "0":
+                self.text_calc = str(i)
+            elif i == "e" and self.opPlace.startswith("e")and self.text_calc == "0":
+                self.text_calc = str(i)
+            elif i == "π" and self.opPlace.startswith("π")and self.text_calc == "0":
+                self.text_calc = str(i)
             else:
                 self.text_calc = self.text_calc + str(i)
-        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":math.log,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun}) #se añade sqrt como r para locals de eval
+        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":lnFun,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun,"a":absoluteValue,"e":math.e,"π":math.pi}) #se añade sqrt como r para locals de eval
         self.display = str(self.result)
+        self.opPlace = str(self.result)
         self.text_calc = "0" #temporal
         self.pulses = 0
         
@@ -309,7 +308,7 @@ class Essentials:
         elif self.opPlace[-1] in str(self.numbers):
             self.opPlace = self.opPlace + "*s("
         else:
-            self.opPlace = self.display + "s("
+            self.opPlace = self.opPlace + "s("
         
         if self.display == "0":
             self.display = "sin("
@@ -324,7 +323,7 @@ class Essentials:
         elif self.opPlace[-1] in str(self.numbers):
             self.opPlace = self.opPlace + "*c("
         else:
-            self.opPlace = self.display + "c("
+            self.opPlace = self.opPlace + "c("
         
         if self.display == "0":
             self.display = "cos("
@@ -338,12 +337,50 @@ class Essentials:
         elif self.opPlace[-1] in str(self.numbers):
             self.opPlace = self.opPlace + "*t("
         else:
-            self.opPlace = self.display + "t("
+            self.opPlace = self.opPlace + "t("
         
         if self.display == "0":
             self.display = "tan("
         elif self.display[-1] in str(self.numbers):
             self.display = self.display + "xtan("
         else:
-            self.display = self.display + "tan("   
-        
+            self.display = self.display + "tan("
+    def abs(self):
+        if self.opPlace == "0":
+            self.opPlace = "a("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace = "*a("
+        else:
+            self.opPlace = self.opPlace + "a("
+
+        if self.display == "0":
+            self.display = "abs("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xabs("
+        else:
+            self.display = self.display + "abs(" 
+    def erase(self):
+        if self.display[-4:] in self.fourFuns and len(self.display) > 4:
+            self.opPlace = self.opPlace[:-2]
+            self.display = self.display[:-4]
+        elif self.display[-4:] in self.fourFuns and len(self.display) == 4:
+            self.opPlace = "0"
+            self.display = "0"
+        elif self.display[-3:] == "ln(" and len(self.display) >3:
+            self.opPlace = self.opPlace[:-2]
+            self.display = self.display[:-3]
+        elif self.display[-3:] == "ln(" and len(self.display) ==3:
+            self.opPlace = "0"
+            self.display = "0"
+        elif self.display[-2:] == "√(" and len(self.display) >2:
+            self.opPlace = self.opPlace[:-2]
+            self.display = self.display[:-2]
+        elif self.display[-2:] == "√(" and len(self.display) ==2:
+            self.opPlace = "0"
+            self.display = "0"
+        elif len(self.display) ==1:
+            self.opPlace = "0"
+            self.display = "0"
+        else:
+            self.opPlace = self.opPlace[:-1]
+            self.display = self.display[:-1]

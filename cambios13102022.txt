@@ -1,0 +1,4 @@
+Me encargado de hacerle cambios al codigo mientras he estado de paseo, para acordarme a mi mismo
+que existe un problema como tal y es en cuanto al logaritmo natural, ya que si se saca el
+logaritmo natural a pi y a euler, van a sacar el mismo valor, lo cual no puede ser posible
+ya que el logaritmo natural de euler es igual a 1, tendre que revisarlo despues
