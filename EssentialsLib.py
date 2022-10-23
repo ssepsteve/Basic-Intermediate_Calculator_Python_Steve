@@ -1,4 +1,5 @@
 
+from logging import exception
 import math
 
 degree = "DEG" 
@@ -12,15 +13,19 @@ lnFun = lambda i: math.log(i,math.e)
 
 def sinFun(i):
     if degree == "RAD":
-        return str(round(math.sin(i),10))
+        x = round(math.sin(i),10)
+        return x
     else:
-        return str(round(math.sin(math.radians(i)),10))
+        x = round(math.sin(math.radians(i)),10)
+        return x
 
 def cosFun(i):
     if degree == "RAD":
-        return str(round(math.cos(i),10))
+        x = str(round(math.cos(i),10))
+        return x
     else:
-        return str(round(math.cos(math.radians(i)),10))
+        x = str(round(math.cos(math.radians(i)),10))
+        return x
 
 def tanFun(i):
     infinite = "IND"
@@ -29,9 +34,9 @@ def tanFun(i):
     elif degree == "DEG" and i%90 == 0 and i%180 != 0:
         return infinite
     elif degree == "RAD" and i%math.radians(180) != 90:
-        return str(round(math.tan(i),10))
+        return round(math.tan(i),10)
     elif degree == "DEG" and i%180 != 90:
-        return str(round(math.tan(math.radians(i)),10))
+        return round(math.tan(math.radians(i)),10)
 
 absoluteValue = lambda i: abs(i)
 
@@ -53,6 +58,7 @@ class Essentials:
         self.display = "0" 
         self.degree = "DEG"
         self.fourFuns = ("log(","sin(","cos(","tan(","abs(")
+        self.exce = ""
     
     
 
@@ -160,12 +166,33 @@ class Essentials:
                 self.text_calc = str(i)
             else:
                 self.text_calc = self.text_calc + str(i)
-        self.result = eval(self.text_calc,{},{"r":math.sqrt,"l":lnFun,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun,"a":absoluteValue,"e":math.e,"π":math.pi}) #se añade sqrt como r para locals de eval
-        self.display = str(self.result)
-        self.opPlace = str(self.result)
-        self.text_calc = "0" #temporal
-        self.pulses = 0
+        try:
+            self.result = eval(str(self.text_calc),{},{"r":math.sqrt,"l":lnFun,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun,"a":absoluteValue,"e":math.e,"π":math.pi}) #se añade sqrt como r para locals de eval
+        except ZeroDivisionError:
+            self.text_calc = "0"
+            self.exce = "Can't Divide By Zero"
+            self.opPlace = "0"
+            self.display = "0"
+            return self.exce
+        except ValueError:
+            self.text_calc = "0"
+            self.exce = "Error"
+            self.opPlace = "0"
+            self.display = "0"
+            return self.exce
         
+        else:
+            if self.result == "IND":
+                self.display = "0"
+                self.opPlace = "0"
+            else:
+                self.display = str(self.result)
+                self.opPlace = str(self.result)
+            self.text_calc = "0" #temporal
+            self.pulses = 0
+            return self.result
+        
+            
     def Open_Par(self):
         self.pulses = 0
         if self.display[-1] in self.operators:

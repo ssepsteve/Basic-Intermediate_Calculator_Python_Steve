@@ -3,7 +3,7 @@ import math
 
 main = Lib1.Essentials()
 
-#4/2+4-((root(9)+root(4)pow))
+
 while True:
     a = str(input("Operation or num: "))
     a = a.lower()
@@ -23,8 +23,7 @@ while True:
         main.Point()
         print(main.display)
     elif a == "res" or a == "=" :
-        main.Result(math.pi,math.e)
-        print(main.display)
+        print(main.Result(math.pi,math.e))
     elif a == "exit":
         break     
     elif a == "div" or a == "/":

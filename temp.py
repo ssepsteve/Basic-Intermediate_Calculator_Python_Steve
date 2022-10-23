@@ -1,5 +1,2 @@
-import math
+print(0.9781476007+1)
 
-ln = lambda i: math.log(i,math.e)
-euler = math.e
-print(eval("l(e)",{},{"l":ln,"e":euler}))
