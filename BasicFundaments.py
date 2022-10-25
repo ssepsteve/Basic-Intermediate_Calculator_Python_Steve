@@ -3,7 +3,55 @@ import math
 
 main = Lib1.Essentials()
 
+dict = {"add":main.Add,"+":main.Add,
+"sub":main.Sub,"-":main.Sub,
+"point":main.Point,".":main.Point,
+"res":main.Result,#(math.pi,math.e)
+"div":main.Div,"/":main.Div,
+")":main.Close_Par,
+"(":main.Open_Par,
+"*":main.Multi,"multi":main.Multi,
+"ac":main.AC,"del":main.AC,
+"sqpow":main.root,"root":main.root,
+"pow":main.powe,
+"ln":main.ln,
+"log":main.log,
+"degree":main.radOrDeg,
+"sin":main.sin,
+"cos":main.cos,
+"tan":main.tan,
+"abs":main.abs,
+"erase":main.erase,
+"pi":main.piButton,#("π")
+"euler":main.eulerButton#("e")
+}
 
+
+
+
+
+while True:
+    a = str(input("Operation or num:"))
+    a = a.lower()
+    if a in main.numbers:
+        print(main.sudoButton(int(a)))
+    elif a == "res":
+        print(dict.get(a)(math.pi,math.e))
+    elif a == "pi":
+        print(dict.get(a)("π"))
+    elif a == "euler":
+        print(dict.get(a)("e"))
+    elif a not in dict:
+        pass
+    else:
+        print(dict.get(a)())
+
+
+
+
+
+
+'''
 while True:
     a = str(input("Operation or num: "))
     a = a.lower()
@@ -112,3 +160,6 @@ while True:
         print("Bienvenido a una simple calculadora hecha en python por Steve Espitia :) \nEste programa esta construido principalmente con palabras en ingles \npor ejemplo: Seno en español se escribe como sen() \npero en este programa decidi ponerlo como sin() \ncon el fin de que a la hora de construir el programa no me confunda con las funciones de las librerias que decidi usar \nen fin, estoy seguro de que no desplegaste help solo porque querias saber porque las palabras estan en ingles \nasi que a continuacion te mostrare cuales son las palabras que identifica este programa \nNumero(1,2,3,4,5...) = Introduce el numero que deseas poner \nSuma(+) = Introduce + o add \nResta(-) = Introduce - o sub \nMuliplicacion(x) = Introduce * o multi\nDivision(÷) = Introduce div o / \nBorrar Todo = Introduce AC o del\nBorar Individualmente = Introduce erase \nResultado = Introduce = o res\nForzar Cerrado Programa = Introduce exit\n")
         print(main.display)
 print("Program End")
+
+
+'''
