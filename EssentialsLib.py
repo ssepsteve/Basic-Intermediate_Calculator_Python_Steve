@@ -129,7 +129,7 @@ class Essentials:
     
     
 
-    def Result(self,pi,eu):
+    def Result(self):
   
         #resultado       
         

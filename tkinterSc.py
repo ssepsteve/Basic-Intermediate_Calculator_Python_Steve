@@ -20,7 +20,7 @@ def tkDiv():
 def tkMulti():
     myLabel.config(text=main.Multi())
 def tkResult():
-    myLabel.config(text=main.Result((math.pi,math.e)))
+    myLabel.config(text=main.Result())
 def tkAC():
     myLabel.config(text=main.AC())
 def tkPoint():
@@ -101,7 +101,7 @@ ButtonCot = Button(root,text="Cot(x)",width=10,height=5).grid(row=4,column=3)
 ButtonPoint = Button(root,text=".",command=lambda:tkPoint(),width=10,height=5).grid(row=4,column=4)
 Button0 = Button(root,text="0",command=lambda:tkSudoButton(0),width=10,height=5).grid(row=4,column=5)
 ButtonUnk3 = Button(root,text="",width=10,height=5).grid(row=4,column=6)
-ButtonRes = Button(root,text="res",command=lambda:tkResult(math.pi,math.e),width=10,height=5).grid(row=4,column=7)
+ButtonRes = Button(root,text="=",command=lambda:tkResult(),width=10,height=5).grid(row=4,column=7)
 ButtonMulti = Button(root,text="X",command=lambda:tkMulti(),width=10,height=5).grid(row=4,column=8)
 
 
