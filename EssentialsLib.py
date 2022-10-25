@@ -1,7 +1,6 @@
 
-from logging import exception
 import math
-from this import d
+
 
 degree = "DEG" 
 
@@ -396,7 +395,7 @@ class Essentials:
             degree = "RAD"
         else:
             degree = "DEG"
-        return self.display + "---->" + degree
+        return degree
    
     def sin(self):
         if self.opPlace == "0":
