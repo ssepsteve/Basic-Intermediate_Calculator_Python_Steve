@@ -1,5 +1,7 @@
-
 import math
+import numpy as np
+from numpy import arange
+
 
 
 degree = "DEG" 
@@ -38,6 +40,45 @@ def tanFun(i):
     elif degree == "DEG" and i%180 != 90:
         return round(math.tan(math.radians(i)),10)
 
+def cscFun(i): #1/sin
+    infinite = "IND"
+    if degree == "RAD" and i%math.radians(180) == 0:
+        return infinite
+    elif degree == "DEG" and i%180 == 0:
+        return infinite
+    elif degree == "RAD" and i%math.radians(180) != 0:
+        return round(1/sinFun(i),10)
+    elif degree == "DEG" and i%180 != 0:
+        return round(1/sinFun(i),10)
+    
+def secFun(i): #1/cos
+    infinite = "IND"
+    if degree == "RAD" and i%math.radians(90) == 0 and i%math.radians(180) != 0:
+        return infinite
+    elif degree == "DEG" and i%90 == 0 and i%180 != 0:
+        return infinite
+    elif degree == "RAD" and i%math.radians(180) != 90:
+        return round(1/cosFun(i),10)
+    elif degree == "DEG" and i%180 != 90:
+        return round(1/cosFun(i),10)
+
+def cotFun(i): #Cos/Sin
+    infinite = "IND"
+    if degree == "RAD" and i%math.radians(180) == 0:
+        return infinite
+    elif degree == "DEG" and i%180 == 0:
+        return infinite
+    elif degree == "RAD" and i%math.radians(180) != 0:
+        return round(1/tanFun(i),10)
+    elif degree == "DEG" and i%180 != 0:
+        return round(1/tanFun(i),10)
+def factorial(x):
+    f = 1.0
+    for i in np.arange(1.0,x+1.0):
+        f = f*i
+    return f 
+
+
 absoluteValue = lambda i: abs(i)
 
 
@@ -57,9 +98,20 @@ class Essentials:
         self.parenthesis = ["(",")"]
         self.display = "0" 
         self.degree = "DEG"
-        self.fourFuns = ("log(","sin(","cos(","tan(","abs(")
+        self.fourFuns = ("log(","sin(","cos(","tan(","abs(","fac(")
         self.exce = ""
         self.funs = ['+','-','x','^','÷','(',')','','ln(',"log(","sin(","cos(","tan(","abs(,√("]
+        self.dictFuns = {"r":math.sqrt,
+        "l":lnFun,
+        "L":log10Fun,
+        "s":sinFun, "S": secFun,
+        "c":cosFun, "C": cscFun,
+        "t":tanFun, "T": cotFun,
+        "a":absoluteValue,
+        "e":math.e,
+        "π":math.pi,
+        "f":factorial
+        }
     
 
     #Botones De Numeros:
@@ -126,7 +178,19 @@ class Essentials:
         self.display = self.display + "-"
         self.pulses = 0
         return self.display
-    
+    def Remainder(self):
+        if self.opPlace[-1] in self.operators2:
+            self.opPlace = self.opPlace[:-1]+"%"
+        else:
+            self.opPlace = self.opPlace + "%"
+        
+        if self.display[-1] in self.operators:
+            self.display = self.display[:-1]+"%"
+        else:
+            self.display = self.display + "%"
+        
+        self.pulses = 0
+        return self.display
     
 
     def Result(self):
@@ -162,7 +226,15 @@ class Essentials:
                 self.text_calc = str(i)
             elif i == "t" and self.opPlace.startswith("t")and self.text_calc == "0":
                 self.text_calc = str(i)
+            elif i == "S" and self.opPlace.startswith("S")and self.text_calc == "0":
+                self.text_calc = str(i)
+            elif i == "C" and self.opPlace.startswith("C")and self.text_calc == "0":
+                self.text_calc = str(i)
+            elif i == "T" and self.opPlace.startswith("T")and self.text_calc == "0":
+                self.text_calc = str(i)
             elif i == "a" and self.opPlace.startswith("a")and self.text_calc == "0":
+                self.text_calc = str(i)
+            elif i == "f" and self.opPlace.startswith("f")and self.text_calc == "0":
                 self.text_calc = str(i)
             elif i == "e" and self.opPlace.startswith("e")and self.text_calc == "0":
                 self.text_calc = str(i)
@@ -171,7 +243,7 @@ class Essentials:
             else:
                 self.text_calc = self.text_calc + str(i)
         try:
-            self.result = eval(str(self.text_calc),{},{"r":math.sqrt,"l":lnFun,"L":log10Fun,"s":sinFun,"c":cosFun,"t":tanFun,"a":absoluteValue,"e":math.e,"π":math.pi}) #se añade sqrt como r para locals de eval
+            self.result = eval(str(self.text_calc),self.dictFuns,) #se añade sqrt como r para locals de eval
         except ZeroDivisionError:
             self.text_calc = "0"
             self.exce = "Can't Divide By Zero"
@@ -457,6 +529,66 @@ class Essentials:
             self.display = self.display + "tan("
         return self.display
 
+    def csc(self):
+        if self.opPlace == "0":
+            self.opPlace = "C("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*C("
+        elif self.opPlace[-1] == ".":
+            self.opPlace = self.opPlace +"0"+"*C("            
+        else:
+            self.opPlace = self.opPlace + "C("
+        
+        if self.display == "0":
+            self.display = "csc("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xcsc("
+        elif self.display[-1] == ".":
+            self.display = self.display +"0"+"xcsc("
+        else:
+            self.display = self.display + "csc("
+        return self.display
+
+    def sec(self):
+        if self.opPlace == "0":
+            self.opPlace = "S("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*S("
+        elif self.opPlace[-1] == ".":
+            self.opPlace = self.opPlace +"0"+"*S("            
+        else:
+            self.opPlace = self.opPlace + "S("
+        
+        if self.display == "0":
+            self.display = "sec("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xsec("
+        elif self.display[-1] == ".":
+            self.display = self.display +"0"+"xsec("
+        else:
+            self.display = self.display + "sec("
+        return self.display
+    
+    def cot(self):
+        if self.opPlace == "0":
+            self.opPlace = "T("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace + "*T("
+        elif self.opPlace[-1] == ".":
+            self.opPlace = self.opPlace +"0"+"*T("            
+        else:
+            self.opPlace = self.opPlace + "T("
+        
+        if self.display == "0":
+            self.display = "cot("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "xcot("
+        elif self.display[-1] == ".":
+            self.display = self.display +"0"+"xcot("
+        else:
+            self.display = self.display + "cot("
+        return self.display
+
     def abs(self):
         if self.opPlace == "0":
             self.opPlace = "a("
@@ -475,6 +607,26 @@ class Essentials:
             self.display = self.display +"0"+"xabs("
         else:
             self.display = self.display + "abs("
+        return self.display
+    
+    def fact(self):
+        if self.opPlace == "0":
+            self.opPlace = "f("
+        elif self.opPlace[-1] in str(self.numbers):
+            self.opPlace = self.opPlace = "*f("
+        elif self.opPlace[-1] == ".":
+            self.opPlace = self.opPlace +"0"+"*f("  
+        else:
+            self.opPlace = self.opPlace + "f("
+
+        if self.display == "0":
+            self.display = "!("
+        elif self.display[-1] in str(self.numbers):
+            self.display = self.display + "x!("
+        elif self.display[-1] == ".":
+            self.display = self.display +"0"+"x!("
+        else:
+            self.display = self.display + "!("
         return self.display
          
     def erase(self):
