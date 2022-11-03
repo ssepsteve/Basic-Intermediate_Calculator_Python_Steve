@@ -23,7 +23,8 @@ dict = {"add":main.Add,"+":main.Add,
 "abs":main.abs,
 "erase":main.erase,
 "pi":main.piButton,#("π")
-"euler":main.eulerButton#("e")
+"euler":main.eulerButton,#("e")
+"dz":main.doubleZero
 }
 
 

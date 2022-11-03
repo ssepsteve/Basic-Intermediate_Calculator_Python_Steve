@@ -130,6 +130,30 @@ class Essentials:
         else:
             self.display = self.display + str(n)
         return self.display
+
+    def doubleZero(self):
+        if self.opPlace == "0":
+            self.opPlace = str(0)
+        elif self.opPlace.endswith(")"):
+            self.opPlace = self.opPlace+"*"+"0"
+        elif len(self.opPlace) > 1 and self.opPlace[-2] in self.operators2 and self.opPlace[-1] == "0":
+            self.opPlace = self.opPlace
+        elif self.display[-1] in self.operators2:
+            self.display = self.opPlace + "0"
+        else:
+            self.opPlace = self.opPlace + "00"
+        
+        if self.display == "0":
+            self.display = str(0)
+        elif self.display.endswith(")"):
+            self.display = self.display+"x"+"0"
+        elif len(self.display) > 1 and self.display[-2] in self.operators and self.display[-1] == "0":
+            self.display = self.display
+        elif self.display[-1] in self.operators:
+            self.display = self.display + "0"                         
+        else:
+            self.display = self.display + "00"
+        return self.display
   
     # Botones De Funciones principales:
 
