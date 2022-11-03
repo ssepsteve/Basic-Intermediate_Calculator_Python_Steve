@@ -1,6 +1,5 @@
 from tkinter import *
 import EssentialsLib as Lib1
-import tkinter.font as font
 
 
 
@@ -8,6 +7,7 @@ main = Lib1.Essentials()
 
 root = Tk()
 root.title("Python Calculator")
+root.iconbitmap("calclogo.ico")
 root.configure(bg="#242424")
 
 #(NOT) FUNS
