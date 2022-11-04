@@ -1,6 +1,5 @@
 import math
-import numpy as np
-from numpy import arange
+
 
 
 
@@ -81,13 +80,9 @@ def factorial(x):
 
 absoluteValue = lambda i: abs(i)
 
-
-
-class Essentials:
-    
-    
-
+class Basic:
     def __init__(self):
+        
         self.result = 0
         self.text_calc = "0"
         self.opPlace = '0'
@@ -97,23 +92,9 @@ class Essentials:
         self.operators2 = {"+","-","*","/"}
         self.parenthesis = ["(",")"]
         self.display = "0" 
-        self.degree = "DEG"
-        self.fourFuns = ("log(","sin(","cos(","tan(","abs(","fac(")
         self.exce = ""
-        self.funs = ['+','-','x','^','÷','(',')','','ln(',"log(","sin(","cos(","tan(","abs(,√("]
-        self.dictFuns = {"r":math.sqrt,
-        "l":lnFun,
-        "L":log10Fun,
-        "s":sinFun, "S": secFun,
-        "c":cosFun, "C": cscFun,
-        "t":tanFun, "T": cotFun,
-        "a":absoluteValue,
-        "e":math.e,
-        "π":math.pi,
-        "f":factorial
-        }
-    
-
+        self.funs = ['+','-','x','^','÷','(',')']
+       
     #Botones De Numeros:
     def sudoButton(self,n):
         if self.opPlace == "0":
@@ -163,7 +144,6 @@ class Essentials:
         self.pulses = 0
         return self.display
 
-
     def Div(self):
         if self.opPlace[-1] in self.operators2:
             self.opPlace = self.opPlace[:-1]+"/"
@@ -177,6 +157,7 @@ class Essentials:
         
         self.pulses = 0
         return self.display
+    
     def Multi(self):
         if self.opPlace[-1] in self.operators2:
             self.opPlace = self.opPlace[:-1]+"*"
@@ -189,19 +170,21 @@ class Essentials:
             self.display = self.display + "x"
         self.pulses = 0
         return self.display
+    
     def AC(self):
         self.opPlace = "0"
         self.text_calc = "0"
         self.display = "0"
-        self.wall1 = "0"
         self.result = 0
         self.pulses = 0
         return self.display
+    
     def Sub(self):
         self.opPlace = self.opPlace + "-"
         self.display = self.display + "-"
         self.pulses = 0
         return self.display
+   
     def Remainder(self):
         if self.opPlace[-1] in self.operators2:
             self.opPlace = self.opPlace[:-1]+"%"
@@ -215,6 +198,150 @@ class Essentials:
         
         self.pulses = 0
         return self.display
+        
+    def erase(self):
+        
+        if self.display[-1] == ".":
+            self.opPlace = self.opPlace[:-1]
+            self.display = self.display[:-1]
+            self.pulses = 0        
+        elif len(self.display) ==1:
+            self.opPlace = "0"
+            self.display = "0"
+        else:
+            self.opPlace = self.opPlace[:-1]
+            self.display = self.display[:-1]
+        return self.display
+
+    def Open_Par(self):
+        self.pulses = 0
+        if self.display[-1] in self.operators:
+            self.display = self.display + "("
+        elif self.display.endswith("("):
+            self.display = self.display + "+("
+        else:
+            self.display = self.display + "x("
+
+        if self.opPlace[-1] in self.operators2:
+            self.opPlace = self.opPlace + "("
+        elif self.opPlace.endswith("("):
+            self.opPlace = self.opPlace + "+("
+        else:
+            self.opPlace = self.opPlace + "*("
+        return self.display
+        
+    def Close_Par(self):
+        self.pulses = 0
+        self.opPlace = self.opPlace + ")"
+        self.display = self.display + ")"
+        return self.display
+
+    def Point(self):
+        bwdsdisplay = ""
+        for i in reversed(self.display):
+            if i == ".":
+                bwdsdisplay = bwdsdisplay + i
+                break
+            elif i in self.operators:
+                break
+            else:
+                bwdsdisplay = bwdsdisplay + i
+
+        if "." in bwdsdisplay:
+            if any(ext in bwdsdisplay for ext in self.operators):   #if self.operators in bwdsdisplay:
+                self.pulses = 0
+            else:
+                self.pulses = 1
+        else:
+            if self.pulses == 0 and self.display[-1] in self.numbers:
+                self.opPlace = self.opPlace + "."
+                self.display = self.display + "."
+                self.pulses = 1
+            elif self.display[-1] in self.operators:
+                self.opPlace = self.opPlace +"0."
+                self.display = self.display +"0."
+                self.pulses = 1
+            elif self.display[-1] in self.parenthesis:
+                self.opPlace = self.opPlace + "*0."
+                self.display = self.display + "x0."
+            else:
+                pass
+        return self.display
+    
+    def Result(self):
+  
+        #resultado       
+        
+        for i in self.opPlace:
+            if i in str(self.numbers):
+                if self.text_calc == "0":
+                    self.text_calc = str(i)
+                elif self.text_calc.endswith(")"):
+                    self.text_calc = self.text_calc+"*"+str(i)
+                else:
+                    self.text_calc = self.text_calc + str(i)      
+            elif i == "x":
+                self.text_calc = self.text_calc + "*"
+            elif i == "÷":
+                self.text_calc = self.text_calc + "/"
+            elif i == "^":
+                self.text_calc = self.text_calc + "**"
+            elif i == "(" and self.opPlace.startswith("(") and self.pulses == 0:
+                self.text_calc = str(i)
+                self.pulses +=1
+            else:
+                self.text_calc = self.text_calc + str(i)
+        try:
+            self.result = eval(str(self.text_calc)) #se añade sqrt como r para locals de eval
+        except ZeroDivisionError:
+            self.text_calc = "0"
+            self.exce = "Can't Divide By Zero"
+            self.opPlace = "0"
+            self.display = "0"
+            return self.exce
+        except ValueError:
+            self.text_calc = "0"
+            self.exce = "Error"
+            self.opPlace = "0"
+            self.display = "0"
+            return self.exce
+        except SyntaxError:
+            self.exce = "Parenthe(sis/ses) Not Closed"
+            self.result = "0"
+            return self.exce
+        else:
+            if self.result == "IND":
+                self.display = "0"
+                self.opPlace = "0"
+            else:
+                self.display = str(self.result)
+                self.opPlace = str(self.result)
+            self.text_calc = "0" #temporal
+            self.pulses = 0
+            return self.result
+        finally:
+            self.exce = ""
+
+class Scientific(Basic):
+    
+    
+
+    def __init__(self):
+        super().__init__()
+        self.degree = "DEG"
+        self.fourFuns = ("log(","sin(","cos(","tan(","abs(","fac(")
+        self.funs = ['+','-','x','^','÷','(',')','','ln(',"log(","sin(","cos(","tan(","abs(,√("]
+        self.dictFuns = {"r":math.sqrt,
+        "l":lnFun,
+        "L":log10Fun,
+        "s":sinFun, "S": secFun,
+        "c":cosFun, "C": cscFun,
+        "t":tanFun, "T": cotFun,
+        "a":absoluteValue,
+        "e":math.e,
+        "π":math.pi,
+        "f":factorial
+        }
     
 
     def Result(self):
@@ -297,28 +424,35 @@ class Essentials:
         finally:
             self.exce = ""
         
-            
-    def Open_Par(self):
-        self.pulses = 0
-        if self.display[-1] in self.operators:
-            self.display = self.display + "("
-        elif self.display.endswith("("):
-            self.display = self.display + "+("
+    def erase(self):
+        if self.display[-4:] in self.fourFuns and len(self.display) > 4:
+            self.opPlace = self.opPlace[:-2]
+            self.display = self.display[:-4]
+        elif self.display[-1] == ".":
+            self.opPlace = self.opPlace[:-1]
+            self.display = self.display[:-1]
+            self.pulses = 0
+        elif self.display[-4:] in self.fourFuns and len(self.display) == 4:
+            self.opPlace = "0"
+            self.display = "0"
+        elif self.display[-3:] == "ln(" and len(self.display) >3:
+            self.opPlace = self.opPlace[:-2]
+            self.display = self.display[:-3]
+        elif self.display[-3:] == "ln(" and len(self.display) ==3:
+            self.opPlace = "0"
+            self.display = "0"
+        elif self.display[-2:] == "√(" and len(self.display) >2:
+            self.opPlace = self.opPlace[:-2]
+            self.display = self.display[:-2]
+        elif self.display[-2:] == "√(" and len(self.display) ==2:
+            self.opPlace = "0"
+            self.display = "0"
+        elif len(self.display) ==1:
+            self.opPlace = "0"
+            self.display = "0"
         else:
-            self.display = self.display + "x("
-
-        if self.opPlace[-1] in self.operators2:
-            self.opPlace = self.opPlace + "("
-        elif self.opPlace.endswith("("):
-            self.opPlace = self.opPlace + "+("
-        else:
-            self.opPlace = self.opPlace + "*("
-        return self.display
-        
-    def Close_Par(self):
-        self.pulses = 0
-        self.opPlace = self.opPlace + ")"
-        self.display = self.display + ")"
+            self.opPlace = self.opPlace[:-1]
+            self.display = self.display[:-1]
         return self.display
 
     def Point(self):
@@ -342,7 +476,7 @@ class Essentials:
                 self.opPlace = self.opPlace + "."
                 self.display = self.display + "."
                 self.pulses = 1
-            elif self.display[-1] in self.operators2:
+            elif self.display[-1] in self.operators:
                 self.opPlace = self.opPlace +"0."
                 self.display = self.display +"0."
                 self.pulses = 1
@@ -653,33 +787,4 @@ class Essentials:
             self.display = self.display + "!("
         return self.display
          
-    def erase(self):
-        if self.display[-4:] in self.fourFuns and len(self.display) > 4:
-            self.opPlace = self.opPlace[:-2]
-            self.display = self.display[:-4]
-        elif self.display[-1] == ".":
-            self.opPlace = self.opPlace[:-1]
-            self.display = self.display[:-1]
-            self.pulses = 0
-        elif self.display[-4:] in self.fourFuns and len(self.display) == 4:
-            self.opPlace = "0"
-            self.display = "0"
-        elif self.display[-3:] == "ln(" and len(self.display) >3:
-            self.opPlace = self.opPlace[:-2]
-            self.display = self.display[:-3]
-        elif self.display[-3:] == "ln(" and len(self.display) ==3:
-            self.opPlace = "0"
-            self.display = "0"
-        elif self.display[-2:] == "√(" and len(self.display) >2:
-            self.opPlace = self.opPlace[:-2]
-            self.display = self.display[:-2]
-        elif self.display[-2:] == "√(" and len(self.display) ==2:
-            self.opPlace = "0"
-            self.display = "0"
-        elif len(self.display) ==1:
-            self.opPlace = "0"
-            self.display = "0"
-        else:
-            self.opPlace = self.opPlace[:-1]
-            self.display = self.display[:-1]
-        return self.display
+    

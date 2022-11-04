@@ -1,12 +1,12 @@
 from tkinter import *
 import EssentialsLib as Lib1
+import time
 
-
-
-main = Lib1.Essentials()
+start_time = time.time()
+main = Lib1.Scientific()
 
 root = Tk()
-root.title("Python Calculator")
+root.title("Scientific")
 root.iconbitmap("calclogo.ico")
 root.configure(bg="#242424")
 
@@ -156,4 +156,9 @@ ButtonMulti = Button(root,text="X",command=lambda:tkMulti(),width=10,height=5,ba
 ButtonOpenPar.place(x=80,y=86,width=40,height=86)
 ButtonClosePar.place(x=120,y=86,width=40,height=86)
 
+end_time = time.time()
+final = end_time - start_time
+print(final)
+
 root.mainloop()
+
