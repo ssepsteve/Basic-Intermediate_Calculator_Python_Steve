@@ -1,5 +1,5 @@
 import math
-
+from numpy import arange
 
 
 
@@ -73,7 +73,7 @@ def cotFun(i): #Cos/Sin
         return round(1/tanFun(i),10)
 def factorial(x):
     f = 1.0
-    for i in np.arange(1.0,x+1.0):
+    for i in arange(1.0,x+1.0):
         f = f*i
     return f 
 
@@ -306,8 +306,10 @@ class Basic:
             self.display = "0"
             return self.exce
         except SyntaxError:
-            self.exce = "Parenthe(sis/ses) Not Closed"
-            self.result = "0"
+            self.exce = "Syntax Error"
+            self.text_calc = "0"
+            self.opPlace = "0"
+            self.display = "0"
             return self.exce
         else:
             if self.result == "IND":
@@ -317,7 +319,6 @@ class Basic:
                 self.display = str(self.result)
                 self.opPlace = str(self.result)
             self.text_calc = "0" #temporal
-            self.pulses = 0
             return self.result
         finally:
             self.exce = ""
@@ -408,8 +409,16 @@ class Scientific(Basic):
             self.display = "0"
             return self.exce
         except SyntaxError:
-            self.exce = "Parenthe(sis/ses) Not Closed"
-            self.result = "0"
+            self.exce = "Syntax Error"
+            self.text_calc = "0"
+            self.opPlace = "0"
+            self.display = "0"
+            return self.exce
+        except TypeError:
+            self.exce = "Syntax Error"
+            self.text_calc = "0"
+            self.opPlace = "0"
+            self.display = "0"
             return self.exce
         else:
             if self.result == "IND":
